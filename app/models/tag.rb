@@ -1,6 +1,10 @@
 class Tag < ActiveRecord::Base
 
-  validates :name, :uniqueness => true
+  attr_accessible :name
 
-  has_and_belongs_to_many :ads
+  validates :name, :presence => true, :uniqueness => {:case_sensitive => false}
+
+  has_many :taggings, :dependent => :destroy
+  has_many :ads, :through => :taggings
+
 end

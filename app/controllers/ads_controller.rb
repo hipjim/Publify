@@ -6,7 +6,7 @@ class AdsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @ads }
+      format.xml { render :xml => @ads }
     end
   end
 
@@ -17,7 +17,7 @@ class AdsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @ad }
+      format.xml { render :xml => @ad }
     end
   end
 
@@ -25,10 +25,11 @@ class AdsController < ApplicationController
   # GET /ads/new.xml
   def new
     @ad = Ad.new
+    @ad.build_user
     @tags = Tag.all
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @ad }
+      format.xml { render :xml => @ad }
     end
   end
 
@@ -40,15 +41,19 @@ class AdsController < ApplicationController
   # POST /ads
   # POST /ads.xml
   def create
+    params[:ad][:ip] = request.remote_ip
+
     @ad = Ad.new(params[:ad])
-    @tags = Tag.all
+
+    @ad.build_user(:name => params[:user]["name"], :email => params[:user]["email"])
+
     respond_to do |format|
       if @ad.save
         format.html { redirect_to(@ad, :notice => 'Ad was successfully created.') }
-        format.xml  { render :xml => @ad, :status => :created, :location => @ad }
+        format.xml { render :xml => @ad, :status => :created, :location => @ad }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @ad.errors, :status => :unprocessable_entity }
+        format.xml { render :xml => @ad.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -61,10 +66,10 @@ class AdsController < ApplicationController
     respond_to do |format|
       if @ad.update_attributes(params[:ad])
         format.html { redirect_to(@ad, :notice => 'Ad was successfully updated.') }
-        format.xml  { head :ok }
+        format.xml { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @ad.errors, :status => :unprocessable_entity }
+        format.xml { render :xml => @ad.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -77,7 +82,7 @@ class AdsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(ads_url) }
-      format.xml  { head :ok }
+      format.xml { head :ok }
     end
   end
 end

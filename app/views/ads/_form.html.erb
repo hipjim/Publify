@@ -23,15 +23,22 @@
         <%= f.label :price %><br/>
         <%= f.text_field :price %>
     </div>
+
+    <div class="field">
+        <%= f.label :tag_names %><br/>
+        <%= f.text_field :tag_names %>
+    </div>
+
+    <%= fields_for :user, @ad.user do |ad_user| %>
+        <%= ad_user.label :name %><br/>
+        <%= ad_user.text_field :name %><br/>
+
+        <%= ad_user.label :email %><br/>
+        <%= ad_user.email_field :email %><br/>
+    <% end %>
+
     <div class="actions">
         <%= f.submit %>
     </div>
-
-    <% @tags.each do |tag| %>
-        <div>
-            <%= check_box_tag "ad[tag_ids][]", tag.id, @ad.tags.include?(tag) %>
-            <%= tag.name %>
-        </div>
-    <% end %>
 
 <% end %>
