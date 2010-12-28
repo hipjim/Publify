@@ -25,8 +25,6 @@ class AdsController < ApplicationController
   # GET /ads/new.xml
   def new
     @ad = Ad.new
-    @ad.build_user
-    @tags = Tag.all
     respond_to do |format|
       format.html # new.html.erb
       format.xml { render :xml => @ad }
@@ -41,11 +39,9 @@ class AdsController < ApplicationController
   # POST /ads
   # POST /ads.xml
   def create
-    params[:ad][:ip] = request.remote_ip
 
     @ad = Ad.new(params[:ad])
-
-    @ad.build_user(:name => params[:user]["name"], :email => params[:user]["email"])
+    @ad.from_ip request.remote_ip
 
     respond_to do |format|
       if @ad.save

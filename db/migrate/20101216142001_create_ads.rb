@@ -6,6 +6,9 @@ class CreateAds < ActiveRecord::Migration
       t.string :ip, :null => false
       t.decimal :price, :precision => 8, :scale => 2, :null => false, :default => 0
       t.integer :user_id, :null => false
+      t.integer :location_id, :null => false
+      t.integer :hits, :null=> false, :default => 0
+      t.boolean :status, :null=> false, :default => true
 
       t.timestamps
     end

@@ -15,10 +15,12 @@
         <%= f.label :title %><br/>
         <%= f.text_field :title %>
     </div>
+
     <div class="field">
         <%= f.label :body %><br/>
-        <%= f.text_field :body %>
+        <%= f.text_area :body %>
     </div>
+
     <div class="field">
         <%= f.label :price %><br/>
         <%= f.text_field :price %>
@@ -29,13 +31,15 @@
         <%= f.text_field :tag_names %>
     </div>
 
-    <%= fields_for :user, @ad.user do |ad_user| %>
-        <%= ad_user.label :name %><br/>
-        <%= ad_user.text_field :name %><br/>
+    <div class="field">
+        <%= f.label :email_address %><br/>
+        <%= f.text_field :email_address %>
+    </div>
 
-        <%= ad_user.label :email %><br/>
-        <%= ad_user.email_field :email %><br/>
-    <% end %>
+    <div class="field">
+        <%= f.label :location_name %><br/>
+        <%= f.text_field :location_name %>
+    </div>
 
     <div class="actions">
         <%= f.submit %>

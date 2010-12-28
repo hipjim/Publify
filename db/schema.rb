@@ -10,9 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101223160826) do
+ActiveRecord::Schema.define(:version => 20101227174133) do
 
 # Could not dump table "ads" because of following ArgumentError
+#   invalid date
+
+# Could not dump table "locations" because of following ArgumentError
 #   invalid date
 
 # Could not dump table "taggings" because of following ArgumentError
