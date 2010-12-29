@@ -1,20 +1,29 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Title:</b>
-  <%= @ad.title %>
+    <b>Title:</b>
+    <%= @ad.title %>
 </p>
 
 <p>
-  <b>Body:</b>
-  <%= @ad.body %>
+    <b>Body:</b>
+    <%= @ad.body %>
 </p>
 
 <p>
-  <b>Price:</b>
-  <%= @ad.price %>
+    <b>Price:</b>
+    <%= @ad.price %>
 </p>
 
+<p>
+    <b>Email:</b>
+    <%= @ad.email_address %>
+</p>
+
+<p>
+    <b>Tags:</b>
+    <%= @ad.tag_names %>
+</p>
 
 <%= link_to 'Edit', edit_ad_path(@ad) %> |
 <%= link_to 'Back', ads_path %>

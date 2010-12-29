@@ -48,9 +48,13 @@ class Ad < ActiveRecord::Base
 
   def assign_tags
     if @tag_names
-      self.tags = @tag_names.split(/\s+/).map do |tag_name|
-        Tag.find_or_create_by_name(tag_name)
-      end
+      tag_name_array = @tag_names.split(/\s+/)
+      self.tags = Tag.find_or_create(tag_name_array)
+
+#        self.tags =@tag_names.split(/\s+/).map do |tag_name|
+#          Tag.find_or_create_by_name(tag_name)
+#        end
+
     end
   end
 
