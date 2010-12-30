@@ -5,6 +5,8 @@ class CreateTags < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    execute "ALTER TABLE `tags` ADD UNIQUE `unique_tag_name` (`name`)"
   end
 
   def self.down
