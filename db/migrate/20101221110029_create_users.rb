@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.timestamps
     end
 
-    #execute "ALTER TABLE `users` ADD UNIQUE `unique_user_email` (`email`)"
+    execute "ALTER TABLE `users` ADD UNIQUE `unique_user_email` (`email`)"
   end
 
   def self.down
