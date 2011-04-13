@@ -1,7 +1,22 @@
 Publify::Application.routes.draw do
 
-  resources :ads
-  root :to => "ads#index"
+  resources :ads, :only => [:new, :create, :show]
+  resources :users, :only => [:new, :create, :show]
+  resources :sessions, :only => [:new, :create, :destroy]
+
+  match '/contact', :to => 'pages#contact'
+  match '/new',     :to => 'users#new'
+  match '/profile', :to => 'users#show'
+  match '/team',    :to => 'pages#team'
+  match '/blog',    :to => 'pages#blog'
+
+  match '/login',   :to => 'sessions#new'
+  match '/logout',  :to => 'sessions#destroy'
+
+  match '/locations', :to => 'locations#index'
+
+  root :to => 'pages#home'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

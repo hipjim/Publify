@@ -1,12 +1,12 @@
 class CreateTags < ActiveRecord::Migration
   def self.up
     create_table :tags do |t|
-      t.string :name, :null => false
+      t.string :tag_name, 	  :null => false
+      t.integer :no_of_supertags, :default => 0
+      t.integer :no_of_subtags,   :default => 0
 
       t.timestamps
     end
-
-    execute "ALTER TABLE `tags` ADD UNIQUE `unique_tag_name` (`name`)"
   end
 
   def self.down

@@ -1,11 +1,28 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.1'
+gem 'rails', '3.0.5'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
+
+gem 'gravatar_image_tag', '1.0.0'
+gem 'will_paginate', '3.0.pre2'
+gem 'acts_as_tree', '0.1.1'
+
+group :development do
+  gem 'rspec-rails', '>=2.5.0'
+  gem 'annotate-models', '1.0.4'
+  gem 'faker', '0.9.5'
+end
+
+group :test do
+  gem 'rspec', '>=2.5.0'
+  gem 'spork', '0.8.4'
+  gem 'factory_girl_rails', '1.0.1'
+  gem  'webrat', '0.7.3'
+end
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -25,8 +42,6 @@ gem 'mysql2'
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
-group :development, :test do
-   gem 'rspec'
-   gem 'rspec-rails'
-   gem 'webrat'
-end
+# group :development, :test do
+#   gem 'webrat'
+# end

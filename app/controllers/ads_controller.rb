@@ -1,84 +1,74 @@
 class AdsController < ApplicationController
-  # GET /ads
-  # GET /ads.xml
-  def index
-    @ads = Ad.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml { render :xml => @ads }
-    end
-  end
-
-  # GET /ads/1
-  # GET /ads/1.xml
-  def show
-    @ad = Ad.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml { render :xml => @ad }
-    end
-  end
-
-  # GET /ads/new
-  # GET /ads/new.xml
   def new
-    @ad = Ad.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml { render :xml => @ad }
-    end
+	#cannot continue without a known user
+	if !known_user?
+		redirect_to root_path
+		return
+	end
+	@title = "Adaugare Anunt"
+	@ad = Ad.new
+	@local_user = User.new
   end
 
-  # GET /ads/1/edit
-  def edit
-    @ad = Ad.find(params[:id])
+  def show
+	#possibly not needed
+	if !signed_in?
+		redirect_to root_path
+		return
+	end
   end
 
-  # POST /ads
-  # POST /ads.xml
   def create
+	#new users are automatically singed in, known users must be authenticated
+   	if currently_known_user.name.nil?
+		#new user and ad
+		@local_user = User.new(params[:ad][:user])
+		#field disabled in form
+		@local_user.email = currently_known_user.email
+		@ad = Ad.new(params[:ad])
+		if @local_user.save
+			@ad.user_id = @local_user.id
+			if !@ad.save
+				#give a new chance and show ad errors
+				render 'new'
+				return
+			end
+		else
+			#give a new chance and show user errors
+			render 'new'
+			return
+		end
+	else
+		#known user -> add just the new ad
+		#check user in DB
+		if known_user?
+			@local_user = User.authenticate(currently_known_user.email, params[:ad][:password])
+		else 
+			@local_user = currently_signedin_user
+		end
+		if !@local_user.nil?
+			@ad = Ad.new(params[:ad])
+			@ad.user_id = @local_user.id
+			if !@ad.save
+				#show ad errors
+				render 'new'
+				return
+			end
+		else 
+			flash.now[:error] = "Incorrect password"
+			render 'new'
+			return
+		end
+	end
+	
+	#new ad added go to user profile
+	flash.now[:success] = "Ati salvat un nou anunt!"
+	if !signed_in?
+		sign_in @local_user
+	end
 
-    @ad = Ad.new(params[:ad])
-    @ad.from_ip request.remote_ip
-
-    respond_to do |format|
-      if @ad.save
-        format.html { redirect_to(@ad, :notice => 'Ad was successfully created.') }
-        format.xml { render :xml => @ad, :status => :created, :location => @ad }
-      else
-        format.html { render :action => "new" }
-        format.xml { render :xml => @ad.errors, :status => :unprocessable_entity }
-      end
-    end
+	#no activation email - activation could be executed from profile page
+	redirect_to profile_path
   end
 
-  # PUT /ads/1
-  # PUT /ads/1.xml
-  def update
-    @ad = Ad.find(params[:id])
-
-    respond_to do |format|
-      if @ad.update_attributes(params[:ad])
-        format.html { redirect_to(@ad, :notice => 'Ad was successfully updated.') }
-        format.xml { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml { render :xml => @ad.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /ads/1
-  # DELETE /ads/1.xml
-  def destroy
-    @ad = Ad.find(params[:id])
-    @ad.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(ads_url) }
-      format.xml { head :ok }
-    end
-  end
 end

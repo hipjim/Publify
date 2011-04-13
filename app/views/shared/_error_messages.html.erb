@@ -1,0 +1,29 @@
+<% if !@ad.nil? %>
+ <% if @ad.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@ad.errors.count, "error") %> 
+       	prohibited this ad from being created:</h2>
+    <p>There were problems with the following fields:</p>
+    <ul>
+    <% @ad.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+ <% end %>
+<% end %>
+<% if !@local_user.nil? %>
+ <% if @local_user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@local_user.errors.count, "error") %> 
+       	prohibited the associated user from being created:</h2>
+    <p>There were problems with the following fields:</p>
+    <ul>
+    <% @local_user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+ <% end %>
+<% end %>
+

@@ -1,0 +1,30 @@
+<h1> Profilul privat pentru <%= currently_signedin_user.name %></h1>
+ 
+<table>
+  <tr>
+    <th>Titlu</th>
+	<th>Continut</th>
+	<th>Pret</th>
+    <th>Tip</th>
+    <th>Locatie</th>
+	<th>Categorii</th>
+    <th>Stare</th>
+    <th>Vizualizari</th>
+  </tr>
+
+<% @ads.each do |ad| %>
+  <tr>
+    <td><%= ad.title %></td>
+    <td><%= ad.body %></td>
+    <td><%= ad.price %></td>
+    <td><%= ad.ad_type %></td>
+    <td><%= ad.location.location_name %></td>
+	<td><%= ad.taglist %></td>
+    <td><%= ad.status %></td>
+	<td><%= ad.hits %></td>
+    <td><%= link_to 'Activate', profile_path %></td>
+    <td><%= link_to 'Edit', profile_path %></td>
+  </tr>
+<% end %>
+</table>
+

@@ -1,0 +1,28 @@
+rails generate scaffold Location location_name:string location_type:string location_parent_id:integer postcode:string latitude:decimal longitude:decimal
+rake db:migrate # creates DB table for locations
+annotate
+rails generate controller Users new
+rails generate model User name:string email:string telephone:string encrypted_password:string salt:string admin:boolean location_id:integer
+rake db:migrate  # creates DB table for users
+rails generate rspec:install #installs support for rspec and autotest
+spork --bootstrap #just once at first usage
+#---
+#then at the start of each programming session
+	spork
+	autotest
+#------------
+rake db:test:prepare # prepare a test copy of the development database
+rails generate controller Pages home new login blog team contact
+rails generate integration_test layout_links
+rails generate integration_test users
+rails generate migration ChangeLatitudeAndLongitudeFromLocations latitude:decimal longitude:decimal
+rake db:migrate # changes precision and scale for latitude and longitude of table of locations
+rails generate model Ad title:string body:text type:string ip:string hits:integer status:string price:float user_id:integer location_id:integer
+rake db:migrate  # creates DB table for adds
+rake db:test:prepare
+rails generate controller Ads new show delete
+rails generate model PairTag supertag_id:integer subtag_id:integer
+rails generate model Tagging tag_id:integer ad_id:integer
+rails generate model Tag tag_name:string no_of_supertags:integer no_of_subtags:integer
+rake db:migrate #creates tables for tags and pair_tags
+rails generate migration RenameAdTypeToAds

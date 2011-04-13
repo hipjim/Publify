@@ -1,0 +1,12 @@
+<h1>Adaugare anunt</h1>
+
+<%= form_for(:user, :url => users_path) do |f| %>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Continuare ..." %>
+  </div>
+<% end %>

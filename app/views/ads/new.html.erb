@@ -1,5 +1,67 @@
-<h1>New ad</h1>
+<% if !currently_known_user.name.nil? %>
+<h1>Continuare, adaugare anunt pentru <%= currently_known_user.name%></h1>
+<% else %>
+<h1>Adaugare anunt si creare cont utilizator nou</h1>
+<% end %>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', ads_path %>
+<%= form_for :ad, :url => ads_path do |ad_form| %>
+  <%= render 'shared/error_messages' %>
+  <div class="field">
+    <%= ad_form.label :title, "Titlu" %><br />
+    <%= ad_form.text_field :title %>
+  </div>
+  <div class="field">
+    <%= ad_form.label :body, "Continut" %><br />
+    <%= ad_form.text_area :body %>
+  </div>
+  <div class="field">
+    <%= ad_form.label :ad_location_name, "Locatie anunt" %><br />
+    <%= ad_form.text_field :location_name %>
+  </div>
+  <div class="field">
+    <%= ad_form.label :price, "Pret" %><br />
+    <%= ad_form.text_field :price %>
+  </div>
+  <div class="field">
+    <%= ad_form.label :tag_list, "Categorii" %><br />
+    <%= ad_form.text_field :tag_list %>
+  </div>
+  <% if currently_signedin_user.nil? %>
+  	<% if currently_known_user.name.nil? %>
+		<%= ad_form.fields_for :user do |user_fields| %>
+			<div class="field">
+    			<%= user_fields.label :email, "Email" %><br />
+    			<%= user_fields.text_field :email, :value => currently_known_user.email, :disabled => true %>
+   			</div>
+   			<div class="field">
+    			<%= user_fields.label :name, "Nume" %><br />
+   				<%= user_fields.text_field :name %>
+   			</div>
+   			<div class="field">
+    			<%= user_fields.label :telephone, "Numar de telefon" %><br />
+    			<%= user_fields.text_field :telephone %>
+   			</div>
+   			<div class="field">
+    			<%= user_fields.label :user_location_name, "Locatie utilizator" %><br />
+    			<%= user_fields.text_field :location_name %>
+   			</div>
+  			<div class="field">
+    			<%= user_fields.label :password, "Parola" %><br />
+    			<%= user_fields.password_field :password %>
+  			</div>
+   			<div class="field">
+    			<%= user_fields.label :password_confirmation, "Confirmare" %><br />
+    			<%= user_fields.password_field :password_confirmation %>
+   			</div>
+		<% end %>
+  	<% else %>
+		<div class="field">
+    		<%= ad_form.label :password, "Parola" %><br />
+    		<%= ad_form.password_field :password %>
+  		</div>
+  	<% end %>
+  <% end %>
+  <div class="actions">
+    	<%= ad_form.submit "Anunt Nou" %>
+  </div>
+<% end %>
