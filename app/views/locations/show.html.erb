@@ -12,7 +12,7 @@
 
 <p>
   <b>Location parent:</b>
-  <%= @location.location_parent_id %>
+  <%= @location.parent.location_name %>
 </p>
 
 <p>
@@ -30,6 +30,4 @@
   <%= @location.longitude %>
 </p>
 
-
-<%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>

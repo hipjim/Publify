@@ -1,0 +1,6 @@
+<li>
+  <%= link_to h(location.location_name), location_path(location)%>
+  <% if !location.children.empty? %>
+    <ul><%= render :partial => 'location', :collection => location.children %></ul>
+  <% end %>  
+</li>

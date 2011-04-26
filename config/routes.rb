@@ -3,6 +3,7 @@ Publify::Application.routes.draw do
   resources :ads, :only => [:new, :create, :show]
   resources :users, :only => [:new, :create, :show]
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :locations, :only => [:index, :show]  
 
   match '/contact', :to => 'pages#contact'
   match '/new',     :to => 'users#new'
@@ -14,6 +15,7 @@ Publify::Application.routes.draw do
   match '/logout',  :to => 'sessions#destroy'
 
   match '/locations', :to => 'locations#index'
+  match '/location',  :to => 'locations#show'
 
   root :to => 'pages#home'
 

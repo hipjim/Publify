@@ -32,7 +32,7 @@ class Location < ActiveRecord::Base
 	#associations
 	#------------
 	#each Location may contain several sub-Locations
-        acts_as_tree :foreign_key => 'location_parent_id', :order => "postcode" 
+    acts_as_tree :foreign_key => 'location_parent_id', :order => "postcode" 
 
 	#each Location contains several Users
 	has_many :users
@@ -46,28 +46,28 @@ class Location < ActiveRecord::Base
 	validates :location_name, :presence => true, :length => { :maximum => 80 }
 	validates :location_type, :presence => true, :inclusion => { :in => %w(city county village street country postcode) }
 	#postcode is not unique because the are locations (i.e. Timisoara) with no postcode, and
-        #there are several locations (i.e. street sections) with similar postcode. In the latter case we 
-        #we generate a record for each location allowing some redundancy into the table because there are 
+    #there are several locations (i.e. street sections) with similar postcode. In the latter case 
+    #we generate a record for each location allowing some redundancy into the table because there are 
 	#not many such cases.
 
 	validates :postcode, :length => { :is => 6 },
-			     :format => { :with => /\A[1-9][0-9]+\z/, :on => :create },
-			     :allow_nil => true
+			  			 :format => { :with => /\A[1-9][0-9]+\z/, :on => :create },
+			  			 :allow_nil => true
 			     
 	#gps coordinates
 	validates :latitude,  :numericality => { :greater_than_or_equal_to => 0.0, 
-						 :on => :create,
-						 :message => "Latitude is a decimal value." }
+						  					 :on => :create,
+						  					 :message => "Latitude is a decimal value." }
 	validates :longitude, :numericality => { :greater_than_or_equal_to => 0.0, 
-						 :on => :create,
-						 :message => "Longitude is a decimal value." }
+						  					 :on => :create,
+						  					 :message => "Longitude is a decimal value." }
 
 	#checks if a string is a postcode        
 	def self.isPostcode (location)
 		!location.nil? && location.size == 6 && location =~ /\A[1-9][0-9]+\z/
-        end
-
-        #extracts a list of all subLocations 
-	def subLocations
+    end
+ 
+	def to_name
+		@location_name
 	end
 end
