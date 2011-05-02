@@ -4,7 +4,7 @@ module SessionsHelper
 	#be login by default just for the current day
     cookies.permanent.signed[:remember_token] = { :value => [user.id, user.salt], :expires => 1.day.from_now }
     self.currently_signedin_user = user
-	#user makes a transition from known to signed_in
+	#signed_in user is the currently known user
 	miss_known_user
   end
 

@@ -12,7 +12,7 @@ module UsersHelper
 
 
   	def known_user?
-    	!currently_known_user.nil?
+    	!currently_known_user.nil? || signed_in?
   	end
 
   	def currently_known_user=(user)
@@ -20,7 +20,7 @@ module UsersHelper
   	end
 
   	def currently_known_user
-    	@known_user ||= user_from_token
+    	@known_user ||= user_from_token || currently_signedin_user
   	end
 
   private
