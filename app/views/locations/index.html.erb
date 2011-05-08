@@ -1,3 +1,3 @@
-<h1>Listare locatii</h1>
+<h1>Management locatii</h1>
 
-<ul id="locations"><%= render :partial => 'location', :collection => Location.find_all_by_location_parent_id(0) %></ul>
+<ul id="locations"><%= render :partial => 'location', :object => Location.find_by_location_parent_id(0) %></ul>

@@ -63,10 +63,12 @@ class Ad < ActiveRecord::Base
 		return taglist
 	end
 
+	#need to update DB table fopr this to work - new field
+    #def to_param
+	#	title
+	#end
+
    private
-		def to_name
-			@title
-		end
 
       	def extract_location
 			return if location_name.nil?

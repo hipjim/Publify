@@ -50,6 +50,12 @@ header img {
   padding: 1em;
   background: #fff;
 }
+/* Lists */
+ul
+{
+    list-style-type: none;
+}
+
 
 /* Navigation */
 

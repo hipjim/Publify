@@ -67,7 +67,8 @@ class Location < ActiveRecord::Base
 		!location.nil? && location.size == 6 && location =~ /\A[1-9][0-9]+\z/
     end
  
-	def to_name
-		@location_name
-	end
+    #need to update DB table for this to work - new field
+	#def to_param
+	#	location_name
+	#end
 end

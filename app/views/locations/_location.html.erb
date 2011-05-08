@@ -1,6 +1,8 @@
 <li>
-  <%= link_to h(location.location_name), location_path(location)%>
-  <% if !location.children.empty? %>
-    <ul><%= render :partial => 'location', :collection => location.children %></ul>
-  <% end %>  
+<% if !location.children.empty? %>
+	<%= link_to image_tag("expand.gif", :class => "expand", :id => "expand_#{location.id}", :alt => 'expanding ...'), locations_path %>
+<% else %>
+	<img id="target" src="images/arrow.gif"/>
+<% end %>
+<%= link_to h(location.location_name), location_path(location)%>
 </li>

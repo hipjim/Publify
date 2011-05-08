@@ -79,10 +79,12 @@ class User < ActiveRecord::Base
 		user = User.new(:name => name, :email => email)
 	end
 
+	#need to adapt DB for this to work - new field
+	#def to_param
+	#	name
+	#end
+
   private
-		def to_name
-			@name
-		end
 
         def extract_location
 			return if location_name.nil?

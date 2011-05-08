@@ -1,0 +1,3 @@
+$('#<%= "#{params[:id]}"%>').parent().parent().after("<ul><%= escape_javascript(render :partial => 'location', :collection => @expandloc.children)%></ul>");
+
+
